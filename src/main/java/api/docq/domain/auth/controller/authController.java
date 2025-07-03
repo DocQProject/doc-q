@@ -20,14 +20,10 @@ public class authController {
     /**
      * 회원가입
      */
-    @PostMapping("/sign-in")
+    @PostMapping("/sign-up")
     public ResponseEntity<SignUpResponse> signUp(
             @Valid @RequestBody SignUpRequest signUpRequest
     ) {
         return ResponseEntity.ok(authService.signUpService(signUpRequest));
     }
-
-    /**
-     * 로그인
-     */
 }
