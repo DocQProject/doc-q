@@ -22,12 +22,12 @@ public class AuthService {
 
     @Transactional
     public SignUpResponse signUp(SignUpRequest signUpRequest) {
-        if (!signUpRequest.getPassword().equals(signUpRequest.getCheckPassword())) {
-            throw new RuntimeException("비밀번호가 일치하지 않습니다.");
-        }
-
         if (userRepository.existsByLoginId(signUpRequest.getLoginId())) {
             throw new RuntimeException("이미 존재하는 회원입니다.");
+        }
+
+        if (!signUpRequest.getPassword().equals(signUpRequest.getCheckPassword())) {
+            throw new RuntimeException("비밀번호가 일치하지 않습니다.");
         }
 
         if (ROLE_USER.equals(signUpRequest.getRole()) && signUpRequest.getClinicId() != null) {

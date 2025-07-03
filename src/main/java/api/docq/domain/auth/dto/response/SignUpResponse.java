@@ -5,10 +5,9 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
 public class SignUpResponse {
 
-    private String token;
+    private final String token;
 
     @Builder
     public SignUpResponse (String token) {
