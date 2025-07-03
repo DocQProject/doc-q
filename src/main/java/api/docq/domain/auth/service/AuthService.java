@@ -4,7 +4,7 @@ import api.docq.config.security.JwtProvider;
 import api.docq.domain.auth.dto.request.SignUpRequest;
 import api.docq.domain.auth.dto.response.SignUpResponse;
 import api.docq.domain.user.repository.UserRepository;
-import api.docq.domain.user.entity.Users;
+import api.docq.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -36,7 +36,7 @@ public class AuthService {
 
         String encodePassword = passwordEncoder.encode(signUpRequest.getPassword());
 
-        Users users = Users.of(
+        User user = User.of(
                 signUpRequest.getClinicId(),
                 signUpRequest.getLoginId(),
                 signUpRequest.getName(),
@@ -45,8 +45,8 @@ public class AuthService {
                 signUpRequest.getRole()
         );
 
-        userRepository.save(users);
-        String accessToken = jwtProvider.createAccessToken(users.getId(), users.getEmail(), users.getRole());
+        userRepository.save(user);
+        String accessToken = jwtProvider.createAccessToken(user.getId(), user.getEmail(), user.getRole());
 
         return SignUpResponse.of(accessToken);
     }

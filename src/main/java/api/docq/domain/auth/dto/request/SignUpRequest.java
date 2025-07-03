@@ -3,6 +3,7 @@ package api.docq.domain.auth.dto.request;
 import api.docq.domain.user.enums.UserRole;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +29,7 @@ public class SignUpRequest {
     @Pattern(regexp = "^[\\w!#$%&'*+/=?`{|}~^.-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", message = "이메일 형식이 올바르지 않습니다.")
     private final String email;
 
-    @NotBlank(message = "권한은 필수 입력값입니다.")
+    @NotNull(message = "권한은 필수 입력값입니다.")
     private final UserRole role;
 
     private final Long clinicId;
