@@ -12,20 +12,20 @@ import java.util.List;
 @Getter
 public class AuthUser {
     private final Long userId;
-    private final String email;
+    private final String loginId;
     private final Collection<? extends GrantedAuthority> authorities;
 
     @Builder
-    public AuthUser(Long userId, String email, UserRole userRole) {
+    public AuthUser(Long userId, String loginId, UserRole userRole) {
         this.userId = userId;
-        this.email= email;
+        this.loginId= loginId;
         this.authorities = List.of(new SimpleGrantedAuthority(userRole.name()));
     }
 
-    public static AuthUser of(Long userId, String email, UserRole userRole) {
+    public static AuthUser of(Long userId, String loginId, UserRole userRole) {
         return AuthUser.builder()
                 .userId(userId)
-                .email(email)
+                .loginId(loginId)
                 .userRole(userRole)
                 .build();
     }

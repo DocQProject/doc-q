@@ -62,11 +62,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private void setAuthentication(Claims claims) {
         //JWT 토큰에 담긴 유저 정보 추출
         Long userId = claims.get("id", Long.class);
-        String email = claims.get("email", String.class);
+        String loginId = claims.get("loginId", String.class);
         UserRole userRole = claims.get("role", UserRole.class);
 
         //유저 저장
-        AuthUser authUser = AuthUser.of(userId, email, userRole);
+        AuthUser authUser = AuthUser.of(userId, loginId, userRole);
 
         //SecurityContext에 인증 정보 저장
         JwtAuthenticationToken jwtAuthenticationToken = new JwtAuthenticationToken(authUser);
