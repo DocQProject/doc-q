@@ -21,7 +21,7 @@ public class AuthService {
     private final JwtProvider jwtProvider;
 
     @Transactional
-    public SignUpResponse signUpService(SignUpRequest signUpRequest) {
+    public SignUpResponse signUp(SignUpRequest signUpRequest) {
         if (!signUpRequest.getPassword().equals(signUpRequest.getCheckPassword())) {
             throw new RuntimeException("비밀번호가 일치하지 않습니다.");
         }
@@ -30,7 +30,7 @@ public class AuthService {
             throw new RuntimeException("이미 존재하는 회원입니다.");
         }
 
-        if (ROLE_USER.equals(signUpRequest.getRole()) && signUpRequest.getClinicId() != null ) {
+        if (ROLE_USER.equals(signUpRequest.getRole()) && signUpRequest.getClinicId() != null) {
             throw new RuntimeException("병원 정보는 의사만 가질 수 있는 필드입니다.");
         }
 
