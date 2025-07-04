@@ -35,6 +35,9 @@ public class User extends TimeStamped {
     @Enumerated(value = EnumType.STRING)
     private UserRole role ;
 
+    @Column(nullable = false)
+    private boolean isDeleted;
+
     @Builder
     public User(Long clinicId, String loginId, String name, String email, String password, UserRole role) {
         this.clinicId = clinicId;
@@ -43,6 +46,7 @@ public class User extends TimeStamped {
         this.email = email;
         this.password = password;
         this.role = role;
+        this.isDeleted = false;
     }
 
     public static User of(Long clinicId, String loginId, String name, String email, String password, UserRole role) {
