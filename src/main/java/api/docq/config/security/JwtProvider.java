@@ -34,10 +34,11 @@ public class JwtProvider {
         key = Keys.hmacShaKeyFor(decodeBytes);
     }
 
-    public String createAccessToken(Long userId, String loginId, UserRole role) {
+    public String createAccessToken(Long userId, String loginId,String name, UserRole role) {
         return Jwts.builder()
                 .claim("id", userId)
                 .claim("loginId", loginId)
+                .claim("name", name)
                 .claim("role", role)
                 .expiration(new Date(System.currentTimeMillis() + ACCESS_TOKEN_EXPIRATION_TIME))
                 .issuedAt(new Date())
