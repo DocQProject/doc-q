@@ -59,7 +59,7 @@ public class AuthService {
         User user = userRepository.findByLoginId(signInRequest.getLoginId())
                 .orElseThrow(() -> new RuntimeException("회원이 존재하지 않습니다."));
 
-        if (passwordEncoder.matches(user.getPassword(), signInRequest.getPassword())) {
+        if (!passwordEncoder.matches(signInRequest.getPassword(), user.getPassword())) {
             throw new RuntimeException("비밀번호가 일치하지 않습니다.");
         }
 
