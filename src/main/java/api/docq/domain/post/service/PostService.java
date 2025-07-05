@@ -5,8 +5,6 @@ import api.docq.domain.post.dto.request.PostRequest;
 import api.docq.domain.post.dto.response.PostResponse;
 import api.docq.domain.post.entity.Post;
 import api.docq.domain.post.repository.PostRepository;
-import api.docq.domain.user.entity.User;
-import api.docq.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,18 +14,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class PostService {
 
     private final PostRepository postRepository;
-    private final UserRepository userRepository;
 
     @Transactional
     public PostResponse createPost(AuthUser authUser, PostRequest request) {
 
-        User user = userRepository.findById(authUser.getUserId())
-                .orElseThrow(() -> new RuntimeException());
-
         Post post = Post.of(
                 authUser.getUserId(),
                 request.getTitle(),
-                user.getName(),
+                authUser.getName(),
                 request.getContent()
         );
 
@@ -36,7 +30,7 @@ public class PostService {
         return PostResponse.builder()
                 .title(post.getTitle())
                 .content(post.getContent())
-                .name(user.getName())
+                .author(authUser.getName())
                 .viewCount(post.getViewCount())
                 .build();
     }
@@ -51,7 +45,7 @@ public class PostService {
         return PostResponse.builder()
                 .title(post.getTitle())
                 .content(post.getContent())
-                .name(post.getAuthor())
+                .author(post.getAuthor())
                 .viewCount(post.getViewCount())
                 .build();
     }
@@ -70,7 +64,7 @@ public class PostService {
         return PostResponse.builder()
                 .title(post.getTitle())
                 .content(post.getContent())
-                .name(post.getAuthor())
+                .author(post.getAuthor())
                 .viewCount(post.getViewCount())
                 .build();
     }

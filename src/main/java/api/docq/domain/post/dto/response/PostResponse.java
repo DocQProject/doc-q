@@ -10,15 +10,15 @@ public class PostResponse {
 
     private final String content;
 
-    private final String name;
+    private final String author;
 
     private final Integer viewCount;
 
     @Builder
-    public PostResponse(String title, String content, String name, Integer viewCount) {
+    public PostResponse(String title, String content, String author, Integer viewCount) {
         this.title = title;
         this.content = content;
-        this.name = name;
+        this.author = author;
         this.viewCount = viewCount;
     }
 }
