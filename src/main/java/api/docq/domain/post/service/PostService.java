@@ -55,6 +55,7 @@ public class PostService {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException());
 
+        // Post 작성자의 ID와 Post 를 수정하려는 클라이언트의 ID 일치 확인
         if (post.getUserId().equals(authUser.getUserId())) {
             post.updatePost(request.getTitle(), request.getContent());
         } else {
@@ -74,8 +75,11 @@ public class PostService {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException());
 
+        // Post 작성자의 ID와 Post 를 삭제하려는 클라이언트의 ID 일치 확인
         if (post.getUserId().equals(authUser.getUserId())) {
             post.deletePost();
+        }else {
+            throw new RuntimeException();
         }
     }
 
