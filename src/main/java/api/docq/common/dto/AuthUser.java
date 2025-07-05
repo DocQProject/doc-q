@@ -13,19 +13,22 @@ import java.util.List;
 public class AuthUser {
     private final Long userId;
     private final String loginId;
+    private final String name;
     private final Collection<? extends GrantedAuthority> authorities;
 
     @Builder
-    public AuthUser(Long userId, String loginId, UserRole userRole) {
+    public AuthUser(Long userId, String loginId,String name, UserRole userRole) {
         this.userId = userId;
         this.loginId= loginId;
+        this.name = name;
         this.authorities = List.of(new SimpleGrantedAuthority(userRole.name()));
     }
 
-    public static AuthUser of(Long userId, String loginId, UserRole userRole) {
+    public static AuthUser of(Long userId, String loginId, String name, UserRole userRole) {
         return AuthUser.builder()
                 .userId(userId)
                 .loginId(loginId)
+                .name(name)
                 .userRole(userRole)
                 .build();
     }

@@ -1,6 +1,8 @@
 package api.docq.domain.auth.controller;
 
+import api.docq.domain.auth.dto.request.SignInRequest;
 import api.docq.domain.auth.dto.request.SignUpRequest;
+import api.docq.domain.auth.dto.response.SignInResponse;
 import api.docq.domain.auth.dto.response.SignUpResponse;
 import api.docq.domain.auth.service.AuthService;
 import jakarta.validation.Valid;
@@ -25,5 +27,15 @@ public class authController {
             @Valid @RequestBody SignUpRequest signUpRequest
     ) {
         return ResponseEntity.ok(authService.signUp(signUpRequest));
+    }
+
+    /**
+     * 로그인
+     */
+    @PostMapping("/sign-in")
+    public ResponseEntity<SignInResponse> signIn(
+            @Valid @RequestBody SignInRequest signInRequest
+    ) {
+        return ResponseEntity.ok(authService.signIn(signInRequest));
     }
 }
